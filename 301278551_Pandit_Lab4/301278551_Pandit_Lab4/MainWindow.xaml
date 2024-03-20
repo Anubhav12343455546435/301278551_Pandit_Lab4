@@ -1,0 +1,98 @@
+﻿<Window x:Class="_301278551_Pandit_Lab4.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:_301278551_Pandit_Lab4"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="472" Width="833">
+    <Grid Margin="0,10,-62,-150" Background="#FFAF8597">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Label x:Name="lbl01"
+               Content=""
+               HorizontalAlignment="Left"
+               Margin="105,43,0,0"
+               VerticalAlignment="Top" />
+
+        <DataGrid x:Name="StockGrid"
+          AutoGenerateColumns="False"
+          EnableRowVirtualization="True"
+          ItemsSource="{Binding billitems}"
+          Margin="10,0,60,0"
+          RowDetailsVisibilityMode="VisibleWhenSelected"
+          ColumnWidth="*"
+          SelectionMode="Single"
+          SelectedItem="{Binding SelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Row="1" Height="279" VerticalAlignment="Center" Background="#FFC69FAC" SelectionChanged="StockGrid_SelectionChanged">
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding Path=Name}" Header="Name" IsReadOnly="True" />
+                <DataGridTextColumn Binding="{Binding Path=Category}" Header="Category" IsReadOnly="True" />
+                <DataGridTextColumn Binding="{Binding Path=Price}" Header="Price" IsReadOnly="True" />
+                <DataGridTextColumn Binding="{Binding Quantity, UpdateSourceTrigger=PropertyChanged}" Header="Quantity" IsReadOnly="False" />
+                <DataGridTemplateColumn Header="Action">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Content="Delete" Click="DataGridRow_Delete" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <ComboBox x:Name="cmbBeverage" HorizontalAlignment="Left" Margin="25,67,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="cmbBeverage_SelectionChanged" Height="24" RenderTransformOrigin="0.549,0.573">
+            <ComboBox.Background>
+                <LinearGradientBrush EndPoint="0,1">
+                    <GradientStop Color="#FFF0F0F0"/>
+                    <GradientStop Color="#FFE5B6B6" Offset="1"/>
+                </LinearGradientBrush>
+            </ComboBox.Background>
+        </ComboBox>
+        <ComboBox x:Name="cmbAppetizer" HorizontalAlignment="Left" Margin="202,69,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="cmbAppetizer_SelectionChanged">
+            <ComboBox.Background>
+                <LinearGradientBrush EndPoint="0,1">
+                    <GradientStop Color="#FFF0F0F0"/>
+                    <GradientStop Color="#FFC5E0BF" Offset="1"/>
+                </LinearGradientBrush>
+            </ComboBox.Background>
+        </ComboBox>
+        <ComboBox x:Name="cmbMainCourse" HorizontalAlignment="Center" Margin="0,67,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="cmbMainCourse_SelectionChanged" RenderTransformOrigin="0.538,0.371" Height="24">
+            <ComboBox.Background>
+                <LinearGradientBrush EndPoint="0,1">
+                    <GradientStop Color="#FFF0F0F0"/>
+                    <GradientStop Color="#FFDCD7D7" Offset="1"/>
+                </LinearGradientBrush>
+            </ComboBox.Background>
+        </ComboBox>
+        <ComboBox x:Name="cmbDessert" HorizontalAlignment="Left" Margin="598,65,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="cmbDessert_SelectionChanged" RenderTransformOrigin="0.484,1.555" Height="26"/>
+        <Label Content="Beverage" HorizontalAlignment="Left" Margin="49,31,0,0" VerticalAlignment="Top" FontFamily="Arial Black" Background="#FFC5854C"/>
+        <Label Content="Appetizer" HorizontalAlignment="Left" Margin="227,31,0,0" VerticalAlignment="Top" FontFamily="Arial Black" Background="#FFB58DC6"/>
+        <Label Content="Main Course" HorizontalAlignment="Left" Margin="400,32,0,0" VerticalAlignment="Top" FontFamily="Arial Black" Background="#FFBC7CC5"/>
+        <Label Content="Dessert" HorizontalAlignment="Left" Margin="627,29,0,0" VerticalAlignment="Top" FontFamily="Arial Black" Background="#FFA56DBD"/>
+        <Button x:Name="ClearBillButton" Content="Clear Bill" Click="ClearBillButton_Click" HorizontalAlignment="Left" Margin="564,187,0,0" Grid.Row="1" VerticalAlignment="Top" FontFamily="Arial Black" FontSize="18" Background="#FF93D2C7" Height="111" Width="111"/>
+        <TextBox x:Name="txtSubtotal" HorizontalAlignment="Left" Margin="400,185,0,0" Grid.Row="1" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" IsReadOnly="True"/>
+        <TextBox x:Name="txtTax" HorizontalAlignment="Left" Margin="400,231,0,0" Grid.Row="1" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" IsReadOnly="True"/>
+        <TextBox x:Name="txtTotal" HorizontalAlignment="Left" Margin="402,276,0,0" Grid.Row="1" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" IsReadOnly="True"/>
+        <Label Content="Sub-Total:" HorizontalAlignment="Left" Margin="263,175,0,0" Grid.Row="1" VerticalAlignment="Top" FontFamily="Arial Black" Width="117" Height="38" Background="#FF9FCBAE"/>
+        <Label Content="Tax:" HorizontalAlignment="Left" Margin="323,228,0,0" Grid.Row="1" VerticalAlignment="Top" FontFamily="Arial Black" RenderTransformOrigin="-1.663,-1.339" Background="#FF74CC96"/>
+        <Label Content="Total:" HorizontalAlignment="Left" Margin="323,273,0,0" Grid.Row="1" VerticalAlignment="Top" FontFamily="Arial Black" Background="#FFB4DDB4"/>
+        <StatusBar Margin="0,-17,60,101" RenderTransformOrigin="0.5,0.5">
+            <StatusBarItem Height="50" Background="#FFF06C67">
+                <Label x:Name="lblStudentName"
+               Content="Student: Anubhav Pandit"
+               FontFamily="Arial Black"
+               Margin="10"/>
+            </StatusBarItem>
+            <Separator/>
+            <StatusBarItem Height="46" Width="573">
+                <Image Source="/centennial.png"
+       Width="597"
+       Height="45"
+       Stretch="Uniform"
+       MouseLeftButtonDown="OpenWebsite" RenderTransformOrigin="0.607,0.434"/>
+            </StatusBarItem>
+        </StatusBar>
+    </Grid>
+</Window>
